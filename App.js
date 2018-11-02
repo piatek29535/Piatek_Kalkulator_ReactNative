@@ -9,6 +9,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 
+const numbers = [[7,8,9] , [4,5,6] , [1,2,3], [0,'.','=']]
+const operators = ['AC','/','*','+','-']
+
 export default class App extends Component {
 
   constructor(props){
@@ -16,6 +19,34 @@ export default class App extends Component {
     this.value = 0;
   }
 
+  renderNumbersButtons(){
+        let rows = [];
+        for (let i = 0; i < 4; i ++) {
+            let row = [];
+            for(let j = 0; j < 3;j++){
+
+                  row.push(<TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}> {numbers[i][j]}</Text>
+                  </TouchableOpacity>)
+
+            }
+            rows.push(<View style={styles.rowFlip}>{row}</View>)
+        }
+
+        return rows;
+  }
+
+  renderOperatorsButtons(){
+        let column = [];
+        for(let i = 0; i < 5;i++){
+
+              column.push(<TouchableOpacity style={styles.calculationButton}>
+              <Text style={styles.buttonText}> {operators[i]}</Text>
+              </TouchableOpacity>)
+        }
+
+        return column;
+  }
 
   render() {
     return (
@@ -28,71 +59,11 @@ export default class App extends Component {
           <View style={styles.buttonsContainer}>
 
             <View style={styles.numbers}>
-                <View style={styles.rowFlip}>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> AC </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.specialButton}/>
-                </View>
-                <View style={styles.rowFlip}>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 7 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 8 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 9 </Text>
-                      </TouchableOpacity>
-                </View>
-                <View style={styles.rowFlip}>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 4 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 5 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 6 </Text>
-                      </TouchableOpacity>
-                </View>
-                <View style={styles.rowFlip}>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 1 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 2 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> 3 </Text>
-                      </TouchableOpacity>
-                </View>
-                <View style={styles.rowFlip}>
-                      <TouchableOpacity style={styles.specialButton}>
-                        <Text style={styles.buttonText}> 0 </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> , </Text>
-                      </TouchableOpacity>
-                </View>
+                {this.renderNumbersButtons()}
             </View>
 
             <View style={styles.calculations}>
-              <TouchableOpacity style={styles.calculationButton}>
-                <Text style={styles.buttonText}> ÷ </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.calculationButton}>
-                <Text style={styles.buttonText}> x </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.calculationButton}>
-                <Text style={styles.buttonText}> + </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.calculationButton}>
-                <Text style={styles.buttonText}> - </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.calculationButton}>
-                <Text style={styles.buttonText}> = </Text>
-              </TouchableOpacity>
+              {this.renderOperatorsButtons()}
             </View>
 
           </View>
