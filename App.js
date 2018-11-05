@@ -9,25 +9,73 @@
 import React, {Component} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 
-const numbers = [[7,8,9] , [4,5,6] , [1,2,3], [0,'.','=']]
+const numbers = [[7,8,9] , [4,5,6] , [1,2,3] , [0,' ',' '] , ['.','=',' ']]
 const operators = ['AC','/','*','+','-']
 
 export default class App extends Component {
 
   constructor(props){
     super(props)
-    this.value = 0;
+    this.state = {
+       firstValue: 0,
+       secondValue: 0,
+       operator: null,
+       result: 0
+    }
+  }
+
+  numberButtonsFunctionality(numbers){
+      let tempResult = 0
+      switch(numbers){
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 0:
+          this.setState({
+              result: (this.state.result === 0) ? numbers :this.state.result +''+ numbers,
+          })
+          break
+
+        case '.':
+          break
+
+        case '=':
+
+      }
+      console.log(this.state.firstValue)
+  }
+
+  operatorsButtonFunctionality(operators){
+    switch(operators){
+      case '*':
+      case '/':
+      case '+':
+      case '-':
+        this.setState({
+            operator: operators,
+            result: 0
+        })
+    }
+
   }
 
   renderNumbersButtons(){
         let rows = [];
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 5; i ++) {
             let row = [];
             for(let j = 0; j < 3;j++){
 
-                  row.push(<TouchableOpacity style={styles.button}>
-                  <Text style={styles.buttonText}> {numbers[i][j]}</Text>
+                if(numbers[i][j] !== ' '){
+                  row.push(<TouchableOpacity onPress={() => this.numberButtonsFunctionality(numbers[i][j])} style={styles.button}>
+                    <Text style={styles.buttonText}> {numbers[i][j]} </Text>
                   </TouchableOpacity>)
+                }
 
             }
             rows.push(<View style={styles.rowFlip}>{row}</View>)
@@ -39,8 +87,7 @@ export default class App extends Component {
   renderOperatorsButtons(){
         let column = [];
         for(let i = 0; i < 5;i++){
-
-              column.push(<TouchableOpacity style={styles.calculationButton}>
+              column.push(<TouchableOpacity onPress = {() => this.operatorsButtonFunctionality(operators[i])} style={styles.calculationButton}>
               <Text style={styles.buttonText}> {operators[i]}</Text>
               </TouchableOpacity>)
         }
@@ -53,7 +100,7 @@ export default class App extends Component {
       <View style={styles.mainContainer}>
 
           <View style={styles.resultContainer}>
-            <Text style={styles.resultText}>{this.value}</Text>
+            <Text style={styles.resultText}>{this.state.result}</Text>
           </View>
 
           <View style={styles.buttonsContainer}>
@@ -75,7 +122,6 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
 
-      //Testowo
   rowFlip:{
     flexDirection: 'row'
   },
