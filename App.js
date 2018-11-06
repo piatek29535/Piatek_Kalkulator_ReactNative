@@ -25,6 +25,7 @@ export default class App extends Component {
   }
 
   numberButtonsFunctionality(numbers){
+
       let tempResult = 0
       switch(numbers){
         case 1:
@@ -37,22 +38,34 @@ export default class App extends Component {
         case 8:
         case 9:
         case 0:
+        if(this.state.operator === null){
           this.setState({
-              result: (this.state.result === 0) ? numbers :this.state.result +''+ numbers,
+              firstValue: (this.state.firstValue === 0) ? numbers : this.state.firstValue +''+ numbers,
+              result: (this.state.result === 0) ? numbers : this.state.result +''+ numbers
           })
+        }else{
+          this.setState({
+              secondValue: (this.state.secondValue === 0) ? numbers : this.state.secondValue +''+ numbers,
+              result: (this.state.result === 0) ? numbers : this.state.result +''+ numbers
+          })
+        }
           break
 
         case '.':
           break
 
         case '=':
-
+          if(this.state.firstValue === 0 || this.state.secondValue === 0) return 0
+          this.setState({
+              result: eval(this.state.firstValue + this.state.operator + this.state.secondValue)
+          })
       }
-      console.log(this.state.firstValue)
+      console.log("fV: "+this.state.firstValue + " ,sV: " +this.state.secondValue+ " ,r"+ this.state.result+ " ,operator:"+this.state.operator)
   }
 
   operatorsButtonFunctionality(operators){
     switch(operators){
+      case 'AC':
       case '*':
       case '/':
       case '+':
