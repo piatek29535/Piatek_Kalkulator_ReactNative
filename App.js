@@ -10,7 +10,8 @@ import React, {Component} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 
 const numbers = [[7,8,9] , [4,5,6] , [1,2,3] , [0,' ',' '] , ['.','=',' ']]
-const operators = ['AC','/','*','+','-']
+const operators = ['/','*','+','-']
+const ac = 'AC'
 
 export default class App extends Component {
 
@@ -65,7 +66,6 @@ export default class App extends Component {
 
   operatorsButtonFunctionality(operators){
     switch(operators){
-      case 'AC':
       case '*':
       case '/':
       case '+':
@@ -99,13 +99,22 @@ export default class App extends Component {
 
   renderOperatorsButtons(){
         let column = [];
-        for(let i = 0; i < 5;i++){
+        for(let i = 0; i < 4;i++){
               column.push(<TouchableOpacity onPress = {() => this.operatorsButtonFunctionality(operators[i])} style={styles.calculationButton}>
               <Text style={styles.buttonText}> {operators[i]}</Text>
               </TouchableOpacity>)
         }
 
         return column;
+  }
+
+  acButtonFunctionality(){
+    this.setState({
+        firstValue: 0,
+        secondValue: 0,
+        operator: null,
+        result:0
+    })
   }
 
   render() {
@@ -124,6 +133,10 @@ export default class App extends Component {
 
             <View style={styles.calculations}>
               {this.renderOperatorsButtons()}
+
+              <TouchableOpacity onPress = {() => this.acButtonFunctionality()}style={styles.calculationButton}>
+              <Text style={styles.buttonText}> {ac} </Text>
+              </TouchableOpacity>
             </View>
 
           </View>
