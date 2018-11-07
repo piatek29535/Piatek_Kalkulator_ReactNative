@@ -60,6 +60,7 @@ export default class App extends Component {
           this.setState({
               result: eval(this.state.firstValue + this.state.operator + this.state.secondValue)
           })
+          break
       }
       console.log("fV: "+this.state.firstValue + " ,sV: " +this.state.secondValue+ " ,r"+ this.state.result+ " ,operator:"+this.state.operator)
   }
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
       //Kontener z wynikiem
   resultText: {
     fontSize: 100,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   resultContainer: {
     flex:1,
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
     flex: 4,
     backgroundColor: '#636466',
     flexDirection:'row'
-},
+  },
 
   numbers: {
     flex:3,
@@ -186,13 +187,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
-  specialButton: {
-    flex:2,
-    backgroundColor: '#DDDDDD',
-    margin: 1,
-    width: 100,
-    height: 100
-  },
+
   buttonText: {
     justifyContent: 'center',
     marginTop: 20,
